@@ -5,15 +5,16 @@ const router = require('./router');
 
 const app = express();
 
+
 app.use(express.urlencoded({extended:true}))
 
+require('./config/handlebars-config')(app);
 app.use(cookieParse());
 
 app.use(express.static('./static'))
 
 app.use(router)
 
-require('./config/handlebars-config')(app);
 
 loadDabase()    
     .then(() => app.listen(3000, () => console.log('The server is running...')))
