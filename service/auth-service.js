@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { jwtSign } = require('../Utils/jwtSign');
+const { jwtSign } = require('../Utils/utils');
 
 const register = async (name, username, password) => {
     let validate = await User.find({username:username});

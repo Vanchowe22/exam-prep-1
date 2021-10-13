@@ -12,3 +12,15 @@ exports.jwtSign = (token) => {
         })
     })
 }
+
+exports.jwtVerify = (token) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, SECRET, (err, decoded) => {
+            if(err){
+                reject(err)
+            }else{
+                resolve(decoded)
+            }
+        })
+    })
+}

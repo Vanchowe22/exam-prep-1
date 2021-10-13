@@ -2,6 +2,7 @@ const express = require('express');
 const loadDabase = require('./config/database-config');
 const cookieParse = require('cookie-parser');
 const router = require('./router');
+const auth = require('./middlewares/auth-middleware');
 
 const app = express();
 
@@ -9,12 +10,14 @@ const app = express();
 app.use(express.urlencoded({extended:true}))
 
 require('./config/handlebars-config')(app);
+
 app.use(cookieParse());
 
 app.use(express.static('./static'))
 
-app.use(router)
+app.use(auth)
 
+app.use(router)
 
 loadDabase()    
     .then(() => app.listen(3000, () => console.log('The server is running...')))
