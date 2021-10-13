@@ -22,8 +22,25 @@ const postRegister = async (req, res) => {
     res.redirect('/')
 }
 
+const renderLogin = (req, res) => {
+    res.render('auth/login')
+}
+
+const postLogin = async (req, res) => {
+    let {username, password} = req.body;
+
+    let token = await authService.login(username, password)
+
+    res.cookie('user', token);
+
+    res.redirect('/')
+}
+
 router.route('/register')
     .get(renderRegister)
     .post(postRegister);
 
+router.route('/login')
+    .get(renderLogin)
+    .post(postLogin)
 module.exports = router;

@@ -26,6 +26,10 @@ userSchema.pre('save', function (next) {
         .catch((err) => new Error (err));
 });
 
+userSchema.method('validatePassword', function(password) {
+    return bcrypt.compare(password, this.password)
+});
+
 const User = mognoose.model('User', userSchema);
 
 module.exports = User;

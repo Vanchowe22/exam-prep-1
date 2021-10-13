@@ -9,7 +9,24 @@ const register = async (name, username, password) => {
     }
 
     let user = await User.create({name, username, password})
+
+    let payload = {
+        id:user._id,
+        username:user.username
+    }
+
+    return jwtSign(payload).catch(err => console.log(err));
+}
+
+const login = async (username, password) => {
+    let user = await User.findOne({username:username});
     
+    let valid = await user.validatePassword(password);
+
+    if (!valid || !user) {
+        throw new Error('Cannot find username or password'); 
+    }
+
     let payload = {
         id:user._id,
         username:user.username
@@ -20,4 +37,5 @@ const register = async (name, username, password) => {
 
 module.exports = {
     register,
+    login,
 };
