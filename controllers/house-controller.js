@@ -7,6 +7,7 @@ const renderCreate = (req, res) => {
 
 const postCreate = async (req, res) => {
     let body = req.body;
+    
     await houseService.create(body, req.user.id)
     
     res.redirect('/')
