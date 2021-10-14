@@ -13,8 +13,16 @@ const postCreate = async (req, res) => {
     res.redirect('/')
 }
 
+const renderRentHouse = async (req, res) => {
+    let data = await houseService.getAll();
+    res.render('house/aprt-for-recent', { data });
+}
+
 router.route('/create')
     .get(renderCreate)
     .post(postCreate)
+
+router.route('/rent')
+    .get(renderRentHouse)
 
 module.exports = router;
