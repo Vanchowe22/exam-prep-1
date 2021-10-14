@@ -1,40 +1,29 @@
 const mongoose = require('mongoose');
 
 const houseSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
-    },
+    name: String,
     type: {
-        enum:['Apartament', 'Villa', 'House'],
-        required:true,
+        type: String,
+        enum: ['Apartament', 'Villa', 'House'],
+        required: true,
     },
-    year:{
-        type:Number,
-        required:true,
-    },
-    city:{
-        type:String,
-        required:true,
-    },
-    homeImage:{
-        type:String,
-        required:true,
-    },
-    description:{
-        type:String,
-        required:true,
-    },
-    availablePieces:{
-        type:Number,
-        required:true,
-    },
-    renderAHome:{
+    year: Number,
+    city: String,
+    homeImage: String,
+    description: String,
+    availablePieces: Number,
+    renderAHome: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    _owner: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
     }
-}) 
+})
 
-const User = mongoose.model('User', houseSchema);
+const House = mongoose.model('House', houseSchema);
 
-module.exports = User;
+module.exports = House;
