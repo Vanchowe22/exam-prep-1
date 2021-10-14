@@ -20,14 +20,18 @@ const renderRentHouse = async (req, res) => {
 
 const renderDetails = (req, res) => {
     houseService.getOne(req.params.id)
-        .then((data) => res.render('details', data))
+        .then((data) => {
+            let isOwn = data._owner == req.user.id
+
+            res.render('details', {...data, isOwn})
+        })
 };
 
 const renderEdit = async (req, res) => {
     let data = await houseService.getOne(req.params.id);
 
     res.render('house/edit', data)
-}
+};
 
 const postEdit = async (req, res) => {
     let data = req.body;

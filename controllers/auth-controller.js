@@ -36,6 +36,10 @@ const postLogin = async (req, res) => {
     res.redirect('/')
 }
 
+const logout = (req, res) => {
+    res.clearCookie('user').redirect('/')
+}
+
 router.route('/register')
     .get(renderRegister)
     .post(postRegister);
@@ -43,4 +47,7 @@ router.route('/register')
 router.route('/login')
     .get(renderLogin)
     .post(postLogin)
+
+router.get('/logout', logout)
+
 module.exports = router;
