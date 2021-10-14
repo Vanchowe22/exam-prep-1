@@ -35,6 +35,12 @@ const postEdit = async (req, res) => {
     await houseService.updateOne(data, req.params.id)
 
     res.redirect(`/house/${req.params.id}/details`);
+};
+
+const deleteHouse = async (req, res) => {
+    await houseService.deleteOne(req.params.id)
+    
+    res.redirect('/')
 }
 
 router.route('/create')
@@ -50,5 +56,9 @@ router.route('/:id/details')
 router.route('/:id/edit')
     .get(renderEdit)
     .post(postEdit);
+
+router.route('/:id/delete')
+    .get(deleteHouse)
+
 
 module.exports = router;
