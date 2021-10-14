@@ -7,9 +7,9 @@ const renderCreate = (req, res) => {
 
 const postCreate = async (req, res) => {
     let body = req.body;
-    
+
     await houseService.create(body, req.user.id)
-    
+
     res.redirect('/')
 };
 
@@ -21,7 +21,7 @@ const renderRentHouse = async (req, res) => {
 const renderDetails = (req, res) => {
     houseService.getOne(req.params.id)
         .then((data) => res.render('details', data))
-}; 
+};
 
 const renderEdit = async (req, res) => {
     let data = await houseService.getOne(req.params.id);
@@ -29,18 +29,26 @@ const renderEdit = async (req, res) => {
     res.render('house/edit', data)
 }
 
+const postEdit = async (req, res) => {
+    let data = req.body;
+
+    await houseService.updateOne(data, req.params.id)
+
+    res.redirect(`/house/${req.params.id}/details`);
+}
+
 router.route('/create')
     .get(renderCreate)
-    .post(postCreate)
+    .post(postCreate);
 
 router.route('/rent')
-    .get(renderRentHouse)
+    .get(renderRentHouse);
 
 router.route('/:id/details')
-    .get(renderDetails)
+    .get(renderDetails);
 
 router.route('/:id/edit')
-    .get()
-
+    .get(renderEdit)
+    .post(postEdit);
 
 module.exports = router;
