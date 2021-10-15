@@ -18,13 +18,11 @@ const renderRentHouse = async (req, res) => {
     res.render('house/aprt-for-recent', { data });
 };
 
-const renderDetails = (req, res) => {
-    houseService.getOne(req.params.id)
-        .then((data) => {
-            let isOwn = data._owner == req.user.id
-
-            res.render('details', {...data, isOwn})
-        })
+const renderDetails = async (req, res) => {
+    let data = await houseService.getOne(req.params.id)
+    let isOwn = data._owner == req.user.id
+    
+    res.render('details', {...data, isOwn})
 };
 
 const renderEdit = async (req, res) => {
@@ -47,6 +45,14 @@ const deleteHouse = async (req, res) => {
     res.redirect('/')
 }
 
+const rentHouse = async (req, res) => {
+    let id = req.params.id;
+    
+    await houseService.rentOne(req.user.id, id)
+
+    res.redirect(`/house/${id}/details`)
+}
+
 router.route('/create')
     .get(renderCreate)
     .post(postCreate);
@@ -64,5 +70,7 @@ router.route('/:id/edit')
 router.route('/:id/delete')
     .get(deleteHouse)
 
+
+router.get('/:id/rent', rentHouse)
 
 module.exports = router;

@@ -8,8 +8,6 @@ const renderRegister = (req, res) => {
 
 const postRegister = async (req, res) => {
     let {name, username, password, repeatPassword} = req.body;
-    console.log(req.body);
-    console.log(name, username, password);
     
     if(password!== repeatPassword){
         throw new Error('Repeat password was not the same');

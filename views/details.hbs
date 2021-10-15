@@ -29,10 +29,11 @@
                     {{#if isOwn}}
                     <a href="/house/{{_id}}/edit" class="edit">Edit</a>
                     <a href="/house/{{_id}}/delete" class="remove">Delete</a>
-                    {{/if}}
+                    {{else}}
                     <!-- logged in user with available pieces-->
-                    <a href="/house/{{_id}}/rent" class="rentHome">Rent a home, available 2 housing</a>
+                    <a href="/house/{{_id}}/rent" class="rentHome">Rent a home, available {{availablePieces}} housing</a>
                     <p class="alRentHome">You have already rent this home</p>
+                    {{/if}}
 
                     <!-- logged in user with no available pieces-->
                     <p class="no-housing">No Housing Available!</p>
