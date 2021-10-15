@@ -18,7 +18,22 @@ const rentOne = async (id, houseId) => {
     house.availablePieces-=1;
     
     return house.save();
-}
+};
+
+const houseCheck = async (house, userId) => {
+    let isOwn = house._owner == userId
+    
+    let availableSpace = house.availablePieces !==0;
+
+    let alreadyRented = house.renderAHome.some(x => x == userId);
+
+    return {
+        isOwn,
+        availableSpace,
+        alreadyRented
+    }
+};
+
 
 module.exports = {
     create,
@@ -27,5 +42,5 @@ module.exports = {
     updateOne,
     deleteOne,
     rentOne,
-
+    houseCheck,
 }
