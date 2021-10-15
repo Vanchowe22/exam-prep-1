@@ -10,12 +10,8 @@ const register = async (name, username, password) => {
 
     let user = await User.create({name, username, password})
 
-    let payload = {
-        id:user._id,
-        username:user.username
-    }
+    return createToken(user)
 
-    return jwtSign(payload);
 }
 
 const login = async (username, password) => {
@@ -27,13 +23,18 @@ const login = async (username, password) => {
         throw new Error('Cannot find username or password'); 
     }
 
+    return createToken(user)
+   
+}
+
+const createToken = (user) => {
     let payload = {
         id:user._id,
         username:user.username
     }
 
     return jwtSign(payload);
-}
+};
 
 module.exports = {
     register,
