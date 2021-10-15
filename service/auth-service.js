@@ -15,7 +15,7 @@ const register = async (name, username, password) => {
         username:user.username
     }
 
-    return jwtSign(payload).catch(err => console.log(err));
+    return jwtSign(payload);
 }
 
 const login = async (username, password) => {
@@ -32,7 +32,7 @@ const login = async (username, password) => {
         username:user.username
     }
 
-    return jwtSign(payload).catch(err => console.log(err));
+    return jwtSign(payload);
 }
 
 module.exports = {
