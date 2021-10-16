@@ -23,6 +23,8 @@ const renderDetails = async (req, res) => {
 
     let validate = await houseService.houseCheck(data, req.user.id);
     
+    //TODO: show who rented the house!
+
     res.render('details', {...data, ...validate});
 };
 
