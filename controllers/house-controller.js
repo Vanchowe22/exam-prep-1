@@ -19,12 +19,11 @@ const renderRentHouse = async (req, res) => {
 };
 
 const renderDetails = async (req, res) => {
-    let data = await houseService.getOne(req.params.id)
-    console.log(houseService.houseCheck);
+    let data = await houseService.getOne(req.params.id);
 
-    let validate = await houseService.houseCheck(data, req.user.id)
+    let validate = await houseService.houseCheck(data, req.user.id);
     
-    res.render('details', {...data, ...validate})
+    res.render('details', {...data, ...validate});
 };
 
 const renderEdit = async (req, res) => {

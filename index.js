@@ -8,14 +8,14 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }))
 
-require('./config/handlebars-config')(app);
 
 app.use(cookieParse());
-
 
 app.use(express.static('./static'))
 
 app.use(auth)
+
+require('./config/handlebars-config')(app);
 
 app.use(router)
 

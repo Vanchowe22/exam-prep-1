@@ -15,15 +15,15 @@ const rentOne = async (id, houseId) => {
 
     house.renderAHome.push(id);
 
-    house.availablePieces-=1;
-    
+    house.availablePieces -= 1;
+
     return house.save();
 };
 
 const houseCheck = async (house, userId) => {
     let isOwn = house._owner == userId
-    
-    let availableSpace = house.availablePieces !==0;
+
+    let availableSpace = house.availablePieces !== 0;
 
     let alreadyRented = house.renderAHome.some(x => x == userId);
 
@@ -34,6 +34,12 @@ const houseCheck = async (house, userId) => {
     }
 };
 
+const search = async (name) => {
+   let houses = await House.find().lean()
+
+   return houses.filter(x => x.name.toLowerCase().includes(name.toLowerCase()));
+};
+
 
 module.exports = {
     create,
@@ -42,5 +48,6 @@ module.exports = {
     updateOne,
     deleteOne,
     rentOne,
+    search,
     houseCheck,
 }
